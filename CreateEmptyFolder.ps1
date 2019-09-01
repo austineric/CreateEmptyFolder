@@ -8,13 +8,9 @@
 
 Try {
     
-    #add the first eight characters of a GUID to the user's desktop path
-    Do {
-        [string]$RandomText=(New-Guid)
-        $RandomText=$RandomText.Substring(0,7)
-        $ParentDirectory=Join-Path $env:USERPROFILE "\Desktop"
-        $NewDirectoryLocation=Join-Path $ParentDirectory $RandomText
-    } Until ((Test-Path -Path $NewDirectoryLocation) -eq $false )
+    #set directory name as a datetime
+    $ParentDirectory=Join-Path $env:USERPROFILE "\Desktop"
+    $NewDirectoryLocation=Join-Path $ParentDirectory (Get-Date).ToString("yyyy.MM.ddTHH.mm.ss")
 
     #create directory and open in explorer
     New-Item -ItemType "Directory" -Path $NewDirectoryLocation | Out-Null
